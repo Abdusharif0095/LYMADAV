@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+<style>
+	body {
+		background-color: #7D7D7D;
+	}
+	.bg-pillow {
+		background-color: #B584C1;
+	}
+</style>
+
+{% block content %}
+	<div class="col-md-12">
+		{% for item in news %}
+			<div class="card mb-3">
+				  <div class="bg-pillow card-header">
+					Категория: <a href="{% url 'category' item.category_id.pk %}">{{ item.category_id.name }}</a>
+				  </div>
+				  <div class="bg-grey card-body">
+					  <div class="media">
+							{% if item.photo %}
+								<img src="{{item.photo.url}}" alt="" width="350">
+							{% else %}
+								<img src="../static/lymadav.png" alt="" width="350">
+							{% endif %}
+							<div class="media-body">
+								<h5 class="card-title">{{ item.title }}</h5>
+								<p class="card-text">{{ item.content|truncatewords:50 }}</p>
+								<a href="{{ item.get_absolute_url }}" class="btn btn-primary bg-pillow">Читать больше...</a>
+							</div>
+					  </div>
+				  </div>
+				  <div class="bg-pillow card-footer">
+						{{ item.created_at|timesince }}
+				  </div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}

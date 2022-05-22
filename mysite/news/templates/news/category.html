@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+<style>
+	body {
+		background-color: #7D7D7D;
+	}
+	.bg-pillow {
+		background-color: #B584C1;
+	}
+</style>
+
+{% block content %}
+	<div class="col-md-12">
+		{% for item in page_obj %}
+			<div class="card mb-3">
+				  <div class="bg-pillow card-header">
+					Категория: {{ item.category_id.name }}
+				  </div>
+				  <div class="bg-grey card-body">
+					  <div class="media">
+							{% if item.photo %}
+								<img src="{{item.photo.url}}" alt="" width="350">
+							{% else %}
+								<img src="../static/lymadav.png" alt="" width="350">
+							{% endif %}
+							<div class="media-body">
+								<h5 class="card-title">{{ item.title }}</h5>
+								<p class="card-text">{{ item.content|truncatewords:50 }}</p>
+								<a href="{{ item.get_absolute_url }}" class="btn btn-primary bg-pillow">Читать больше...</a>
+							</div>
+					  </div>
+				  </div>
+				  <div class="bg-pillow card-footer">
+						{{ item.created_at|timesince }}
+				  </div>
+			</div>
+		<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+				  <ul class="pagination">
+					<li class="page-item">
+					  <a class="page-link" href="?page={{prev}}" aria-label="Previous">
+						<span aria-hidden="true">&laquo;</span>
+					  </a>
+					</li>
+					  <li class="page-item"><a class="page-link" href="?page={{prev}}" style="color: #92789A;">...</a></li>
+					  <li class="page-item"><a class="page-link" href="?page={{page_num}}" style="color: #92789A;">{{ page_num }}</a></li>
+					  <li class="page-item"><a class="page-link" href="?page={{next}}" style="color: #92789A;">...</a></li>
+					  <li class="page-item">
+					<a class="page-link" href="?page={{next}}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				  </a>
+				</li>
+		  </ul>
+		</nav>
+		{% empty %}
+			<div class="card mb-3">
+				<div class="media-body">
+					<h1> Нет новостей с такой категорией!!! </h1>
+					<br><br><br><br><br><br><br><br><br>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+{% endblock %}

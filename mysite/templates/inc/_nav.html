@@ -1,0 +1,46 @@
+{% load news_tags %}
+{% load static %}
+<style>
+	nav bg-pillow {
+		background-color: #B584C1;
+	}
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-pillow">
+	  <div class="container-fluid">
+		<a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'logo.png' %}" alt="">   LYMADAV</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			<li class="nav-item">
+			  <a class="nav-link active" aria-current="page" href="/">Главная</a>
+			</li>
+			  {% get_categories as categories%}
+			  {% for item in categories %}
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="{% url 'category' item.pk %}">{{ item.name }}</a>
+				</li>
+			  {% endfor %}
+		  </ul>
+		  <form action="{% url 'search_list' %}" method="post" class="d-flex">
+			  {% csrf_token %}
+			  {{ form.non_fields.errors }}
+			  {{form.as_p}}
+<!--			<input class="form-control me-2" type="search" placeholder="Поиск..." aria-label="Search">-->
+			<button class="btn btn-outline-success" type="submit" style="color: black; height:40px;margin-top:17px;background: #d6d4d4;">Поиск</button>
+		  </form>
+		<li class="nav-item dropdown">
+		  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+			  <img src="../../../static/menuimg.png" alt="" style="margin-top: -30px;">
+		  </a>
+			<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+			  <li><a class="dropdown-item" href="/admin">Вход</a></li>
+			  <li><a class="dropdown-item" href="{% url 'register' %}">Регистрация</a></li>
+			  <li><a class="dropdown-item" href="{% url 'add_news' %}">Добавить новость</a></li>
+		  </ul>
+		</li>
+<!--		<div align="center" style="margin-top:-21px;"><li><a href="/admin">Вход</a></li></div>-->
+		</div>
+	  </div>
+</nav>

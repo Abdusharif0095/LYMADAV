@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %} Регистрация {% endblock %}
+
+<style>
+	body {
+		background-color: #7D7D7D;
+	}
+	.bg-pillow {
+		background-color: #B584C1;
+	}
+	.round {
+	    border-radius: 10px;
+	}
+</style>
+
+{% block content %}
+
+    <div style="background: #B584C1; margin-left: 25%; width: 50%;">
+
+        <h1 align="center"> Хотите стать нашим редактором? </h1>
+        <h3 align="center"> Оставьте заявку </h3>
+        <br>
+        <form action="{% url 'register' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form1.non_fields.errors }}
+            {{ form1.as_p }}
+            <div style="margin-left: 20px; margin-top: -40px;"><p>Согласен на обработку персональных данных</p></div>
+            <br>
+            <div align="center"> <button type="submit" class="button"> Отправить </button> </div>
+        </form>
+        <br><br>
+    </div>
+
+
+{% endblock %}

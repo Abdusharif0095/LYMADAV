@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ news_item.title }} {% endblock %}
+{% block content %}
+<style>
+    body{
+        background-color: #FFFFFF;
+    }
+   .round {
+    border-radius: 50px;
+    border: 3px solid black;
+    box-shadow: 0 0 7px #666;
+   }
+</style>
+<div>
+    <div style="overflow: hidden; border-radius:15px; background: #E6E6FA;">
+            <div style="margin-left: 20px; margin-right: 20px;">
+                <div style="width: 1000%; height:450px;">
+                    <br>
+                    <div style="float: left; width: 450px; height: 400px;">
+                        {% if news_item.photo.url %}
+                            <img src="{{news_item.photo.url}}" width="400px" alt="Нет фото">
+                        {% else %}
+                            <img src="../../../static/limadav.png" width="400px" alt="Нет фото">
+                        {% endif %}
+                    </div>
+                    <div style="float: left; width: 100px; height: 300px; margin-left: 100px;">
+                        <div style="width: 200px; height: 300px;">
+                            <h1> {{news_item.title}} </h1>
+                            <img src="{{news_item.user_id.photo.url}}" class="round" width="50px" height="50px" alt="">
+                        <div>
+                            <i><h6>{{news_item.user_id}}</h6></i>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+        <div style="margin-left: 20px; margin-right: 20px;">
+            <div>
+            {{ news_item.content|linebreaks }}
+            </div>
+        </div>
+    </div>
+<div class="bg-pillow" style="border-radius:15px; margin-top:10px; background: #E6E6FA;">
+        <div style="margin-left: 20px; margin-right: 20px;">
+            <p>Комментарии: </p>
+            <br>
+            <form action="{% url 'view_news' news_item.id %}" method="post" style="border-radius:15px;">
+                {% csrf_token %}
+                {{ form1.non_fields.errors }}
+                {{ form1.as_p }}
+            <button type="submit" class="btn btn-primary btn-block bg-black"> Опубликовать </button>
+            </form>
+            <br>
+            {% for item in comments %}
+            <div class="card w-95">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.writer }}</h5>
+                <p class="card-text">{{ item.content }}</p>
+                  <hr>
+                <p class="card-text">{{ item.time }}</p>
+              </div>
+            </div>
+            <br>
+            {% empty %}
+            <div class="card w-95">
+              <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">Пока нет комментариев!</p>
+              </div>
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+</div>
+
+{% endblock %}

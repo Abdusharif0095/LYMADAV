@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %} Добавление новости {% endblock %}
+
+<style>
+	body {
+		background-color: #7D7D7D;
+	}
+	.bg-pillow {
+		background-color: #B584C1;
+	}
+	.round {
+	    border-radius: 10px;
+	}
+</style>
+
+{% block content %}
+
+<h1>Добавление новости</h1>
+
+<form action="{% url 'add_news' %}" method="post" class="bg-pillow" style="border-radius:15px;">
+    {% csrf_token %}
+
+    {{ form1.non_fields.errors }}
+    <br>
+    <div class="form1-group">
+         <label for="{{ form1.user_id.id_for_label }}"> </label>
+         {{ form11.user_id }}
+         <div class="invalid-feedback">
+             {{ form11.user_id.errors }}
+         </div>
+    </div>
+    <br>
+
+     <div class="form-group">
+         <label for="{{ form1.category_id.id_for_label }}"> Категория: </label>
+         {{ form1.category_id }}
+         <div class="invalid-feedback">
+             {{ form1.category_id.errors }}
+         </div>
+    </div>
+    <br>
+
+    <div class="form-group">
+         <label for="{{ form1.title.id_for_label }}"> Название: </label>
+         {{ form1.title }}
+         <div class="invalid-feedback">
+             {{ form1.title.errors }}
+         </div>
+    </div>
+    <br>
+
+    <div class="form-group">
+         <label for="{{ form1.content.id_for_label }}"> Текст: </label>
+         {{ form1.content }}
+         <div class="invalid-feedback">
+             {{ form1.content.errors }}
+         </div>
+    </div>
+    <br>
+
+    <div class="form-group">
+         <label for="{{ form1.photo.id_for_label }}"> Фото: </label>
+         {{ form1.photo }}
+         <div class="invalid-feedback">
+             {{ form1.photo.errors }}
+         </div>
+    </div>
+    <br>
+
+    <button type="submit" class="btn btn-primary btn-block bg-black"> Добавить новость </button>
+    <br><br>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Тестовая страница {% endblock %}
+
+<style>
+	body {
+		background-color: #7D7D7D;
+	}
+	.bg-pillow {
+		background-color: #B584C1;
+	}
+	.round {
+	    border-radius: 10px;
+	}
+</style>
+
+{% block content %}
+
+<h1>Тестовая страница</h1>
+
+    {% for name in page_obj.object_list %}
+        <p> {{name}} </p>
+    {% endfor %}
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          {% for p in page_obj.paginator.page_range %}
+            <li class="page-item"><a class="page-link" href="?page={{p}}" style="color: #92789A;">{{ p }}</a></li>
+          {% endfor %}
+      </ul>
+    </nav>
+
+{% endblock %}
